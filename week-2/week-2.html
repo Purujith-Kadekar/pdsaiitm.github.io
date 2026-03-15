@@ -20,64 +20,17 @@
             color: #333;
             margin: 0;
             padding: 0;
-            display: flex;
-        }
+            }
 
         .content-container {
-            flex: 1;
-            max-width: 80%;
-            margin-left: 10px;
-            margin-right: 100px;
+            width: min(95%, 1100px);
+            margin: 20px auto;
             padding: 20px;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
         }
-
-        .right-menu {
-            width: 17%;
-            position: static;
-            margin-right: 5px;
-            top: 20px;
-            right: 10px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .right-menu h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: #1abc9c;
-        }
-
-        .right-menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .right-menu ul li {
-            margin-bottom: 10px;
-        }
-
-        .right-menu ul li a {
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .right-menu ul li a:hover {
-            color: #1abc9c;
-        }
-
-        h1, h2, h3 {
+h1, h2, h3 {
             color: #1abc9c;
         }
 
@@ -535,22 +488,7 @@ def mergesort(L):
 
 
 </div>
-    <div class="col-lg-3 collapse right-menu d-lg-block" id="rightMenuCollapse" >
-        <h2>Topics</h2>
-        <ul>
-            <li><a>Algorithm Analysis</a></li>
-            <li><a>Searching Algorithms</a></li>
-            <li><a>Linear Search</a></li>
-            <li><a>Binary Search</a></li>
-            <li><a>Sorting Algorithms</a></li>
-            <li><a>Selection Sort</a></li>
-            <li><a>Insertion Sort</a></li>
-            <li><a>Merge Sort</a></li>
-
-        </ul>
-    </div>
-
-    <!-- Bootstrap JS -->
+<!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Prism.js JS for Syntax Highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
