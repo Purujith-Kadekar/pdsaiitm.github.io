@@ -34,11 +34,14 @@
         }
 
         .menu-toggle {
-            display: none;
+            display: inline-block;
             background: none;
+            background-color: rgba(255, 255, 255, 0.15);
             border: none;
+            border-radius: 6px;
+            padding: 6px 10px;
             color: white;
-            font-size: 20px;
+            font-size: 14px;
             cursor: pointer;
         }
 
@@ -63,6 +66,10 @@
             display: block;
             border-radius: 8px;
             flex-shrink: 0;
+        }
+
+        .side-menu.collapsed {
+            display: none;
         }
 
         .side-menu h2 {
@@ -103,23 +110,22 @@
 
         .main-content {
             margin: 0;
-            padding: 0;
+            padding: 24px;
             background-color: white;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-            overflow: hidden;
             flex: 1;
             min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        iframe {
-            width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-            height: 75vh;
-            min-height: 420px;
-            border: none;
-            border-radius: 8px;
+        .main-content p {
+            margin: 0;
+            font-size: 18px;
+            color: #2c3e50;
         }
 
         @media (max-width: 992px) {
@@ -129,23 +135,8 @@
                 gap: 8px;
             }
 
-            .menu-toggle {
-                display: block;
-            }
-
             .side-menu {
                 width: 100%;
-                display: none;
-            }
-
-            .side-menu.open {
-                display: block;
-            }
-
-            iframe {
-                border-radius: 8px;
-                height: 65vh;
-                min-height: 320px;
             }
         }
 
@@ -164,31 +155,31 @@
 <body>
     <div class="top-bar">
         <h1>IITM - BS Program: PDSA Online Textbook</h1>
-        <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+        <button class="menu-toggle" onclick="toggleMenu()">Toggle Sidebar</button>
     </div>
 
     <div class="layout">
         <div class="side-menu" id="sideMenu">
             <h2>Table of Contents</h2>
             <ul>
-                <li><a href="home.html" target="content-frame">Home</a></li>
-                <li><a href="week-1/week-1.html" target="content-frame">Week 1: Python Basic</a></li>
-                <li><a href="week-2/week-2.html" target="content-frame">Week 2: Complexity, Sorting and Searching</a></li>
-                <li><a href="week-3/week-3.html" target="content-frame">Week 3: Basic Data Structures</a></li>
-                <li><a href="week-4/week-4.html" target="content-frame">Week 4: Graph Algorithms-1</a></li>
-                <li><a href="week-5/week-5.html" target="content-frame">Week 5: Graph Algorithms-2</a></li>
-                <li><a href="week-6/week-6.html" target="content-frame">Week 6: Tree, Heap, BST</a></li>
-                <li><a href="week-7/week-7.html" target="content-frame">Week 7: AVL Tree, Greedy Algorithms</a></li>
-                <li><a href="week-8/week-8.html" target="content-frame">Week 8: Divide and conquer Algorithms</a></li>
-                <li><a href="week-9/week-9.html" target="content-frame">Week 9: Dynamic Programming</a></li>
-                <li><a href="week-11/week-11.html" target="content-frame">Week 11: LP, Network flow and Complexity Classes</a></li>
-                <li><a href="week-12/week-12.html" target="content-frame">Week 12: String Matching Algorithms</a></li>
-                <li><a href="Contribute1.html" target="content-frame">Competitive Problems for Practice</a></li>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="week-1/week-1.html">Week 1: Python Basic</a></li>
+                <li><a href="week-2/week-2.html">Week 2: Complexity, Sorting and Searching</a></li>
+                <li><a href="week-3/week-3.html">Week 3: Basic Data Structures</a></li>
+                <li><a href="week-4/week-4.html">Week 4: Graph Algorithms-1</a></li>
+                <li><a href="week-5/week-5.html">Week 5: Graph Algorithms-2</a></li>
+                <li><a href="week-6/week-6.html">Week 6: Tree, Heap, BST</a></li>
+                <li><a href="week-7/week-7.html">Week 7: AVL Tree, Greedy Algorithms</a></li>
+                <li><a href="week-8/week-8.html">Week 8: Divide and conquer Algorithms</a></li>
+                <li><a href="week-9/week-9.html">Week 9: Dynamic Programming</a></li>
+                <li><a href="week-11/week-11.html">Week 11: LP, Network flow and Complexity Classes</a></li>
+                <li><a href="week-12/week-12.html">Week 12: String Matching Algorithms</a></li>
+                <li><a href="Contribute1.html">Competitive Problems for Practice</a></li>
             </ul>
         </div>
 
         <div class="main-content">
-            <iframe id="myIframe" name="content-frame" src="home.html" onload="self.scrollTo(0,0)"></iframe>
+            <p>Select a week from the sidebar to open it as a full page.</p>
         </div>
     </div>
 
@@ -200,21 +191,8 @@
     <script>
         function toggleMenu() {
             const sideMenu = document.getElementById('sideMenu');
-            sideMenu.classList.toggle('open');
+            sideMenu.classList.toggle('collapsed');
         }
-
-        const links = document.querySelectorAll('.side-menu ul li a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                links.forEach(l => l.classList.remove('selected'));
-                link.classList.add('selected');
-
-                const sideMenu = document.getElementById('sideMenu');
-                if (window.innerWidth <= 992 && sideMenu.classList.contains('open')) {
-                    sideMenu.classList.remove('open');
-                }
-            });
-        });
     </script>
 </body>
 </html>
