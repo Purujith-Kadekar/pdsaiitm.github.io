@@ -852,9 +852,9 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
 <div class='topics-toolbar'>
-  <button id='toggleTopicsButton' type='button' onclick='toggleTopics()'>Hide Topics</button>
+  <button id='toggleTopicsButton' type='button' onclick='toggleTopics()'>Hide Sidebar</button>
   <div id='topicsContainer'>
-    <strong>Topics</strong>
+    <strong>Sidebar</strong>
     <ul id='topicsList'></ul>
   </div>
 </div>
@@ -878,7 +878,7 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 <script>
 function slugifyHeading(text){return text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');}
 function buildTopics(){var content=document.querySelector('#write');var topicsList=document.getElementById('topicsList');if(!content||!topicsList){return;}topicsList.innerHTML='';var headings=content.querySelectorAll('h1, h2, h3');var idCounts={};headings.forEach(function(heading){var rawText=heading.textContent.trim();if(!rawText){return;}if(!heading.id){var baseId=slugifyHeading(rawText)||'section';if(idCounts[baseId]===undefined){idCounts[baseId]=0;}else{idCounts[baseId]+=1;}heading.id=idCounts[baseId]===0?baseId:baseId+'-'+idCounts[baseId];}var item=document.createElement('li');if(heading.tagName.toLowerCase()==='h3'){item.className='topic-subitem';}var link=document.createElement('a');link.href='#'+heading.id;link.textContent=rawText;item.appendChild(link);topicsList.appendChild(item);});if(!topicsList.children.length){var emptyItem=document.createElement('li');emptyItem.textContent='No topics available';topicsList.appendChild(emptyItem);}}
-function toggleTopics(){var container=document.getElementById('topicsContainer');var button=document.getElementById('toggleTopicsButton');if(!container||!button){return;}var isHidden=container.style.display==='none';container.style.display=isHidden?'block':'none';button.textContent=isHidden?'Hide Topics':'Show Topics';}
+function toggleTopics(){var container=document.getElementById('topicsContainer');var button=document.getElementById('toggleTopicsButton');if(!container||!button){return;}var isHidden=container.style.display==='none';container.style.display=isHidden?'block':'none';button.textContent=isHidden?'Hide Sidebar':'Show Sidebar';}
 document.addEventListener('DOMContentLoaded',buildTopics);
 </script>
 </body>
