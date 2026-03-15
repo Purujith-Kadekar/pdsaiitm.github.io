@@ -821,8 +821,25 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 							stroke-width: 0;
 						}
 </style><title>Week 4 - Graph Summary</title>
+<style>
+.topics-toolbar { max-width: 860px; margin: 16px auto 8px; padding: 0 12px; }
+#toggleTopicsButton { border: 1px solid #cfd8e3; background: #ffffff; padding: 6px 12px; border-radius: 8px; cursor: pointer; margin-bottom: 8px; }
+#topicsContainer { border: 1px solid #d8e0ea; border-radius: 10px; background: #f8fafc; padding: 10px 14px; }
+#topicsList { margin: 8px 0 0; padding-left: 18px; }
+#topicsList li { margin: 4px 0; }
+#topicsList li.topic-subitem { margin-left: 16px; }
+#topicsList a { color: #1d4ed8; text-decoration: none; }
+#topicsList a:hover { text-decoration: underline; }
+</style>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
+<div class='topics-toolbar'>
+  <button id='toggleTopicsButton' type='button' onclick='toggleTopics()'>Hide Topics</button>
+  <div id='topicsContainer'>
+    <strong>Topics</strong>
+    <ul id='topicsList'></ul>
+  </div>
+</div>
 <div id='write'  class=''><p><img src="../assets/logo.png" width=30% /></p><hr>
 <span style="display:flex; justify-content: space-between;">
 	<a href="https://pdsaiitm.github.io/">Home</a> <a href="../week-3/summary.html">Week-3</a> <a href="../week-5/summary.html">Week-5</a>    
@@ -891,5 +908,11 @@ mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
 </div><p>&nbsp;</p><hr /><p>&nbsp;</p><h2 id='visualization-of-graph-algorithms-using-visualgo'><span>Visualization of graph algorithms using visualgo</span></h2><p><span>Select the BFS/DFS/Topological sort algorithm from left menu to visualize the working.</span></p><figure class="video_container">
   <iframe src="https://visualgo.net/en/dfsbfs" frameborder="0"  height="700px" allowfullscreen="true"> </iframe>
 </figure><p><span>Source - </span><a href='https://visualgo.net/en/dfsbfs' target='_blank' class='url'>https://visualgo.net/en/dfsbfs</a></p><hr /><p>&nbsp;</p></div></div>
+<script>
+function slugifyHeading(text){return text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');}
+function buildTopics(){var content=document.querySelector('#write');var topicsList=document.getElementById('topicsList');if(!content||!topicsList){return;}topicsList.innerHTML='';var headings=content.querySelectorAll('h1, h2, h3');var idCounts={};headings.forEach(function(heading){var rawText=heading.textContent.trim();if(!rawText){return;}if(!heading.id){var baseId=slugifyHeading(rawText)||'section';if(idCounts[baseId]===undefined){idCounts[baseId]=0;}else{idCounts[baseId]+=1;}heading.id=idCounts[baseId]===0?baseId:baseId+'-'+idCounts[baseId];}var item=document.createElement('li');if(heading.tagName.toLowerCase()==='h3'){item.className='topic-subitem';}var link=document.createElement('a');link.href='#'+heading.id;link.textContent=rawText;item.appendChild(link);topicsList.appendChild(item);});if(!topicsList.children.length){var emptyItem=document.createElement('li');emptyItem.textContent='No topics available';topicsList.appendChild(emptyItem);}}
+function toggleTopics(){var container=document.getElementById('topicsContainer');var button=document.getElementById('toggleTopicsButton');if(!container||!button){return;}var isHidden=container.style.display==='none';container.style.display=isHidden?'block':'none';button.textContent=isHidden?'Hide Topics':'Show Topics';}
+document.addEventListener('DOMContentLoaded',buildTopics);
+</script>
 </body>
 </html>

@@ -62,10 +62,74 @@ h1, h2, h3 {
         code {
             font-family: 'Courier New', Courier, monospace;
         }
+
+        .topics-toolbar {
+            width: min(95%, 1100px);
+            margin: 20px auto 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .topics-toolbar button {
+            border: none;
+            border-radius: 6px;
+            background: #1abc9c;
+            color: #fff;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .topics-container {
+            width: min(95%, 1100px);
+            margin: 10px auto 0;
+            padding: 16px 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .topics-container.hidden {
+            display: none;
+        }
+
+        .topics-container h2 {
+            margin: 0 0 10px;
+            font-size: 1.5rem;
+        }
+
+        #topicsList {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        #topicsList li {
+            margin: 4px 0;
+        }
+
+        #topicsList li.topic-subitem {
+            margin-left: 16px;
+        }
+
+        #topicsList a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+
+        #topicsList a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
+<div class="topics-toolbar">
+    <button id="toggleTopicsButton" type="button" onclick="toggleTopics()">Hide Topics</button>
+</div>
+<div id="topicsContainer" class="topics-container">
+    <h2>Topics</h2>
+    <ul id="topicsList"></ul>
+</div>
 <div class="content-container">
         <br>
         <br>
@@ -493,6 +557,76 @@ def mergesort(L):
     <!-- Prism.js JS for Syntax Highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function slugifyHeading(text) {
+            return text
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+        }
+
+        function buildTopics() {
+            const topicsList = document.getElementById('topicsList');
+            if (!topicsList) {
+                return;
+            }
+
+            const headings = document.querySelectorAll('.content-container h1, .content-container h2, .content-container h3');
+            topicsList.innerHTML = '';
+
+            headings.forEach((heading, index) => {
+                const title = heading.textContent.trim();
+                if (!title) {
+                    return;
+                }
+
+                if (!heading.id) {
+                    const baseId = slugifyHeading(title) || `section-${index + 1}`;
+                    let candidateId = baseId;
+                    let suffix = 2;
+
+                    while (document.getElementById(candidateId)) {
+                        candidateId = `${baseId}-${suffix}`;
+                        suffix += 1;
+                    }
+
+                    heading.id = candidateId;
+                }
+
+                const listItem = document.createElement('li');
+                if (heading.tagName === 'H3') {
+                    listItem.classList.add('topic-subitem');
+                }
+
+                const link = document.createElement('a');
+                link.href = `#${heading.id}`;
+                link.textContent = title;
+                listItem.appendChild(link);
+                topicsList.appendChild(listItem);
+            });
+
+            if (!topicsList.children.length) {
+                const emptyItem = document.createElement('li');
+                emptyItem.textContent = 'No topics available.';
+                topicsList.appendChild(emptyItem);
+            }
+        }
+
+        function toggleTopics() {
+            const topicsContainer = document.getElementById('topicsContainer');
+            const toggleButton = document.getElementById('toggleTopicsButton');
+            if (!topicsContainer || !toggleButton) {
+                return;
+            }
+
+            const hidden = topicsContainer.classList.toggle('hidden');
+            toggleButton.textContent = hidden ? 'Show Topics' : 'Hide Topics';
+        }
+
+        document.addEventListener('DOMContentLoaded', buildTopics);
+    </script>
 </body>
 
 </html>
